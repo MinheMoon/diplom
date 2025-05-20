@@ -1,0 +1,141 @@
+@page
+@model SystemMonitor.Pages.Settings.IndexModel
+@{
+    ViewData["Title"] = "Налаштування";
+}
+
+<div class="container">
+    <h2>Налаштування системи моніторингу</h2>
+    
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Налаштування сповіщень</h5>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="checkbox" id="sendEmailAlerts" 
+                                   name="sendEmailAlerts" @(Model.SendEmailAlerts ? "checked" : "")>
+                            <label class="form-check-label" for="sendEmailAlerts">
+                                Надсилати сповіщення на електронну пошту
+                            </label>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="intervalMinutes" class="form-label">Інтервал між сповіщеннями (хвилин)</label>
+                            <input type="number" class="form-control" id="intervalMinutes" 
+                                   name="intervalMinutes" value="@Model.IntervalMinutes" min="1" max="1440">
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="emailAddress" class="form-label">Email-адреса для сповіщень</label>
+                            <input type="email" class="form-control" id="emailAddress" 
+                                   name="emailAddress" value="@Model.EmailAddress">
+                        </div>
+                        
+                        <h5 class="mt-4">Пороги критичних значень</h5>
+                        
+                        <div class="mb-3">
+                            <label for="cpuThreshold" class="form-label">ЦП (%)</label>
+                            <input type="number" class="form-control" id="cpuThreshold" 
+                                   name="cpuThreshold" value="@Model.CpuThreshold" min="50" max="100">
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="memoryThreshold" class="form-label">Пам'ять (%)</label>
+                            <input type="number" class="form-control" id="memoryThreshold" 
+                                   name="memoryThreshold" value="@Model.MemoryThreshold" min="50" max="100">
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="diskThreshold" class="form-label">Диск (%)</label>
+                            <input type="number" class="form-control" id="diskThreshold" 
+                                   name="diskThreshold" value="@Model.DiskThreshold" min="50" max="100">
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">Зберегти налаштування</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Налаштування SMTP для відправки email</h5>
+                </div>
+                <div class="card-body">
+                    <form method="post" asp-page-handler="SaveSmtp">
+                        <div class="mb-3">
+                            <label for="smtpServer" class="form-label">SMTP сервер</label>
+                            <input type="text" class="form-control" id="smtpServer" 
+                                   name="smtpServer" value="@Model.SmtpServer">
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="smtpPort" class="form-label">Порт</label>
+                            <input type="number" class="form-control" id="smtpPort" 
+                                   name="smtpPort" value="@Model.SmtpPort" min="1" max="65535">
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="smtpFrom" class="form-label">Відправник (From)</label>
+                            <input type="email" class="form-control" id="smtpFrom" 
+                                   name="smtpFrom" value="@Model.SmtpFrom">
+                        </div>
+                        
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="checkbox" id="smtpUseSsl" 
+                                   name="smtpUseSsl" @(Model.SmtpUseSsl ? "checked" : "")>
+                            <label class="form-check-label" for="smtpUseSsl">
+                                Використовувати SSL
+                            </label>
+                        </div>
+                        
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="checkbox" id="smtpUseAuth" 
+                                   name="smtpUseAuth" @(Model.SmtpUseAuth ? "checked" : "")>
+                            <label class="form-check-label" for="smtpUseAuth">
+                                Використовувати автентифікацію
+                            </label>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="smtpUsername" class="form-label">Логін</label>
+                            <input type="text" class="form-control" id="smtpUsername" 
+                                   name="smtpUsername" value="@Model.SmtpUsername">
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="smtpPassword" class="form-label">Пароль</label>
+                            <input type="password" class="form-control" id="smtpPassword" 
+                                   name="smtpPassword" value="@Model.SmtpPassword">
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">Зберегти налаштування SMTP</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row mt-4 mb-4">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Тестування відправки сповіщень</h5>
+                </div>
+                <div class="card-body">
+                    <form method="post" asp-page-handler="TestEmail">
+                        <p>Ви можете надіслати тестове повідомлення для перевірки налаштувань.</p>
+                        <button type="submit" class="btn btn-warning">Надіслати тестове сповіщення</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

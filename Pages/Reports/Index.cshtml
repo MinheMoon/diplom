@@ -1,0 +1,64 @@
+﻿@page
+@model SystemMonitor.Pages.Reports.IndexModel
+@{
+ViewData["Title"] = "Звіти";
+}
+
+<div class="container-fluid">
+    <h2>Звіти та історичні дані</h2>
+
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    Параметри звіту
+                </div>
+                <div class="card-body">
+                    <form id="report-form">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="start-date">Початкова дата</label>
+                                    <input type="datetime-local" id="start-date" class="form-control" required />
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="end-date">Кінцева дата</label>
+                                    <input type="datetime-local" id="end-date" class="form-control" required />
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group pt-4 mt-2">
+                                    <button type="submit" class="btn btn-primary">Згенерувати звіт</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    Результати
+                </div>
+                <div class="card-body">
+                    <div id="report-container">
+                        <p>Виберіть параметри звіту і натисніть "Згенерувати звіт"</p>
+                    </div>
+                    <canvas id="reportChart" height="300" style="display: none;"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.6/signalr.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
+<script src="~/js/charts/reports.js"></script>
+}

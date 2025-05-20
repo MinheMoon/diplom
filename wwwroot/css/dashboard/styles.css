@@ -1,0 +1,33 @@
+﻿.card {
+    margin-bottom: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+    font-weight: bold;
+    background-color: #f8f9fa;
+}
+
+.progress {
+    height: 25px;
+}
+
+.progress-bar {
+    font-weight: bold;
+    transition: width 0.3s ease;
+}
+
+table {
+    width: 100%;
+    margin-bottom: 0;
+}
+
+.btn-primary {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    border-color: #6c757d;
+}
